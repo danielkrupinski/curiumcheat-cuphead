@@ -42,13 +42,13 @@ int main()
 		counter++;
 		int buffer1 = 0;
 		ReadProcessMemory(handle, (LPVOID)(buffer + 0x60), &buffer1, sizeof(buffer1), 0);
-		if (buffer1 = 1)
+		if (buffer1!=4)
 		{
 			int NewHealth = 4;
 			WriteProcessMemory(handle, (LPVOID)(buffer + 0x60), &NewHealth, sizeof(NewHealth), 0);
 		}
 		Sleep(2000);
-		if (counter < 5)
+		if (counter > 5)
 		{
 			ReadProcessMemory(handle, (LPVOID)(0x1020A13C), &buffer, sizeof(buffer), 0);
 			ReadProcessMemory(handle, (LPVOID)(buffer + 0x740), &buffer, sizeof(buffer), 0);
