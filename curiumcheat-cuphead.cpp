@@ -27,34 +27,39 @@ int main()
 	system("cls");
 	printf("Process found!");
 
-	int buffer = 0;
+	int pPlayer = 0;
 
-	ReadProcessMemory(handle, (LPVOID)(0x1020A13C), &buffer, sizeof(buffer), 0);
-	ReadProcessMemory(handle, (LPVOID)(buffer + 0x740), &buffer, sizeof(buffer), 0);
-	ReadProcessMemory(handle, (LPVOID)(buffer + 0x34), &buffer, sizeof(buffer), 0);
-	ReadProcessMemory(handle, (LPVOID)(buffer + 0x8), &buffer, sizeof(buffer), 0);
-	ReadProcessMemory(handle, (LPVOID)(buffer + 0x18), &buffer, sizeof(buffer), 0);
+	ReadProcessMemory(handle, (LPVOID)(0x1020A13C), &pPlayer, sizeof(pPlayer), 0);
+	ReadProcessMemory(handle, (LPVOID)(pPlayer + 0x740), &pPlayer, sizeof(pPlayer), 0);
+	ReadProcessMemory(handle, (LPVOID)(pPlayer + 0x34), &pPlayer, sizeof(pPlayer), 0);
+	ReadProcessMemory(handle, (LPVOID)(pPlayer + 0x8), &pPlayer, sizeof(pPlayer), 0);
+	ReadProcessMemory(handle, (LPVOID)(pPlayer + 0x18), &pPlayer, sizeof(pPlayer), 0);
+
+	system("cls");
+	printf("Select max health you want: ");
+	int NewHealth = 0;
+	cin >> NewHealth;
+	WriteProcessMemory(handle, (LPVOID)(pPlayer + 0x5C), &NewHealth, sizeof(NewHealth), 0);
 
 	int counter = 0;
 
 	for (;;)
 	{
 		counter++;
-		int buffer1 = 0;
-		ReadProcessMemory(handle, (LPVOID)(buffer + 0x60), &buffer1, sizeof(buffer1), 0);
-		if (buffer1!=4)
+		int pPlayer1 = 0;
+		ReadProcessMemory(handle, (LPVOID)(pPlayer + 0x60), &pPlayer1, sizeof(pPlayer1), 0);
+		if (pPlayer1!=NewHealth)
 		{
-			int NewHealth = 4;
-			WriteProcessMemory(handle, (LPVOID)(buffer + 0x60), &NewHealth, sizeof(NewHealth), 0);
+			WriteProcessMemory(handle, (LPVOID)(pPlayer + 0x60), &NewHealth, sizeof(NewHealth), 0);
 		}
-		Sleep(2000);
-		if (counter > 5)
+		Sleep(1000);
+		if (counter==5)
 		{
-			ReadProcessMemory(handle, (LPVOID)(0x1020A13C), &buffer, sizeof(buffer), 0);
-			ReadProcessMemory(handle, (LPVOID)(buffer + 0x740), &buffer, sizeof(buffer), 0);
-			ReadProcessMemory(handle, (LPVOID)(buffer + 0x34), &buffer, sizeof(buffer), 0);
-			ReadProcessMemory(handle, (LPVOID)(buffer + 0x8), &buffer, sizeof(buffer), 0);
-			ReadProcessMemory(handle, (LPVOID)(buffer + 0x18), &buffer, sizeof(buffer), 0);
+			ReadProcessMemory(handle, (LPVOID)(0x1020A13C), &pPlayer, sizeof(pPlayer), 0);
+			ReadProcessMemory(handle, (LPVOID)(pPlayer + 0x740), &pPlayer, sizeof(pPlayer), 0);
+			ReadProcessMemory(handle, (LPVOID)(pPlayer + 0x34), &pPlayer, sizeof(pPlayer), 0);
+			ReadProcessMemory(handle, (LPVOID)(pPlayer + 0x8), &pPlayer, sizeof(pPlayer), 0);
+			ReadProcessMemory(handle, (LPVOID)(pPlayer + 0x18), &pPlayer, sizeof(pPlayer), 0);
 			counter = 0;
 		}
 	}
