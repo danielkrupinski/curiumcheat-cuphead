@@ -26,7 +26,7 @@ int main()
 		ReadProcessMemory(handle, (LPVOID)(pPlayer + 0x34), &pPlayer, sizeof(int), 0);
 		ReadProcessMemory(handle, (LPVOID)(pPlayer + 0x8), &pPlayer, sizeof(int), 0);
 		ReadProcessMemory(handle, (LPVOID)(pPlayer + 0x18), &pPlayer, sizeof(int), 0);
-		WriteProcessMemory(handle, (LPVOID)(pPlayer + 0x6C), &invincibility, sizeof(invincibility), 0);
+		WriteProcessMemory(handle, (LPVOID)(pPlayer + 0x84), &invincibility, sizeof(invincibility), 0);
 		Sleep(1);
 	}
 	return 0;
