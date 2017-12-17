@@ -1,5 +1,7 @@
 # Curium for Cuphead
 Curium is a open source cheat for Cuphead game. Tested on Cuphead v.1.0.
+## Info
+Curium is developed and tested using Visual Studio 2017 15.5.1 on Windows 10 1709.
 ## Features
 - invincibility (god mode)
 - more coming soon...
