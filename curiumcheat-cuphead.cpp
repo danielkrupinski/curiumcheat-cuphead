@@ -16,6 +16,18 @@ int main()
 
 	printf("Process found!");
 
+	/*
+
+	Sleep(2000);
+	system("cls");
+	std::cout << "Select mode: " << std::endl;
+	std::cout << "1. Hard invincibility and supermeter cheat." << std::endl;
+	std::cout << "2. Full invincibility but no sepermeter cheat." << std::endl;
+	BYTE mode = 0;
+	std::cin >> mode;
+
+	*/
+
 	BYTE invincibility = 1;
 	float supermeter = 50;
 	size_t pPlayer = 0;
