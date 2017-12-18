@@ -17,6 +17,7 @@ int main()
 	printf("Process found!");
 
 	BYTE invincibility = 1;
+	float supermeter = 50;
 	size_t pPlayer = 0;
 
 	for (;;)
@@ -27,6 +28,7 @@ int main()
 		ReadProcessMemory(handle, (LPVOID)(pPlayer + 0x8), &pPlayer, sizeof(int), 0);
 		ReadProcessMemory(handle, (LPVOID)(pPlayer + 0x18), &pPlayer, sizeof(int), 0);
 		WriteProcessMemory(handle, (LPVOID)(pPlayer + 0x84), &invincibility, sizeof(invincibility), 0);
+		WriteProcessMemory(handle, (LPVOID)(pPlayer + 0x68), &supermeter, sizeof(supermeter), 0);
 		Sleep(1);
 	}
 	return 0;
