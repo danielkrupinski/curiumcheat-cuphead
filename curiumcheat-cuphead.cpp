@@ -24,12 +24,11 @@ int main()
 	int mode = 0;
 	std::cin >> mode;
 	system("cls");
+	printf("Cheat activated!");
 
 	BYTE invincibility = 1;
 	float supermeter = 50;
-	//int coins = 60;
 	size_t player = 0;
-	//size_t money = 0;
 
 	for (;;)
 	{
@@ -38,17 +37,6 @@ int main()
 		ReadProcessMemory(handle, (LPVOID)(player + 0x34), &player, sizeof(int), 0);
 		ReadProcessMemory(handle, (LPVOID)(player + 0x8), &player, sizeof(int), 0);
 		ReadProcessMemory(handle, (LPVOID)(player + 0x18), &player, sizeof(int), 0);
-
-		// experimental coins cheat (buggy)
-
-		/*
-		ReadProcessMemory(handle, (LPVOID)(0x101F40AC), &money, sizeof(int), 0);
-		ReadProcessMemory(handle, (LPVOID)(money + 0xCC), &money, sizeof(int), 0);
-		ReadProcessMemory(handle, (LPVOID)(money + 0x320), &money, sizeof(int), 0);
-		ReadProcessMemory(handle, (LPVOID)(money + 0x658), &money, sizeof(int), 0);
-		ReadProcessMemory(handle, (LPVOID)(money + 0x12C), &money, sizeof(int), 0);
-		WriteProcessMemory(handle, (LPVOID)(money + 0xB4), &coins, sizeof(coins), 0);
-		*/
 
 		switch (mode)
 		{
