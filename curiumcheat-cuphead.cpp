@@ -16,17 +16,14 @@ int main()
 
 	printf("Process found!");
 
-	/*
-
 	Sleep(2000);
 	system("cls");
 	std::cout << "Select mode: " << std::endl;
 	std::cout << "1. Hard invincibility and supermeter cheat." << std::endl;
 	std::cout << "2. Full invincibility but no sepermeter cheat." << std::endl;
-	BYTE mode = 0;
+	int mode = 0;
 	std::cin >> mode;
-
-	*/
+	system("cls");
 
 	BYTE invincibility = 1;
 	float supermeter = 50;
@@ -39,8 +36,19 @@ int main()
 		ReadProcessMemory(handle, (LPVOID)(pPlayer + 0x34), &pPlayer, sizeof(int), 0);
 		ReadProcessMemory(handle, (LPVOID)(pPlayer + 0x8), &pPlayer, sizeof(int), 0);
 		ReadProcessMemory(handle, (LPVOID)(pPlayer + 0x18), &pPlayer, sizeof(int), 0);
-		WriteProcessMemory(handle, (LPVOID)(pPlayer + 0x84), &invincibility, sizeof(invincibility), 0);
-		WriteProcessMemory(handle, (LPVOID)(pPlayer + 0x68), &supermeter, sizeof(supermeter), 0);
+
+		switch (mode)
+		{
+		case 1:
+			WriteProcessMemory(handle, (LPVOID)(pPlayer + 0x84), &invincibility, sizeof(invincibility), 0);
+			WriteProcessMemory(handle, (LPVOID)(pPlayer + 0x68), &supermeter, sizeof(supermeter), 0);
+			break;
+		case 2:
+			WriteProcessMemory(handle, (LPVOID)(pPlayer + 0x6C), &invincibility, sizeof(invincibility), 0);
+			break;
+		default:
+			return 0;
+		}
 		Sleep(1);
 	}
 	return 0;
