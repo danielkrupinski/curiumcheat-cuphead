@@ -10,6 +10,6 @@ Tested on Cuphead v1.0.
 ## How to use
 1. Download release .exe file or compile from source code.
 1. Launch Cuphead.
-1. Launch curiumcheat-cuphead.exe.
+1. Run curiumcheat-cuphead.exe as administrator.
 1. Select mode.
 1. Play!
