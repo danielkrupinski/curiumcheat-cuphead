@@ -1,6 +1,31 @@
 #include <iostream>
 #include <Windows.h>
 #include <tlhelp32.h>
+#include <tchar.h>
+
+DWORD_PTR dwGetModuleBaseAddress(DWORD dwProcID, TCHAR *szModuleName)
+{
+	DWORD_PTR dwModuleBaseAddress = 0;
+	HANDLE hSnapshot = CreateToolhelp32Snapshot(TH32CS_SNAPMODULE | TH32CS_SNAPMODULE32, dwProcID);
+	if (hSnapshot != INVALID_HANDLE_VALUE)
+	{
+		MODULEENTRY32 ModuleEntry32;
+		ModuleEntry32.dwSize = sizeof(MODULEENTRY32);
+		if (Module32First(hSnapshot, &ModuleEntry32))
+		{
+			do
+			{
+				if (_tcsicmp(ModuleEntry32.szModule, szModuleName) == 0)
+				{
+					dwModuleBaseAddress = (DWORD_PTR)ModuleEntry32.modBaseAddr;
+					break;
+				}
+			} while (Module32Next(hSnapshot, &ModuleEntry32));
+		}
+		CloseHandle(hSnapshot);
+	}
+	return dwModuleBaseAddress;
+}
 
 int main()
 {
@@ -16,6 +41,8 @@ int main()
 			if (_stricmp(entry.szExeFile, "Cuphead.exe") == 0)
 			{
 				HANDLE hProcess = OpenProcess(PROCESS_ALL_ACCESS, FALSE, entry.th32ProcessID);
+
+				DWORD_PTR monodlladress = dwGetModuleBaseAddress(entry.th32ProcessID, (TCHAR*)("mono.dll"));
 
 				printf("Process found!");
 				Sleep(1500);
@@ -35,7 +62,7 @@ int main()
 				for (;;)
 				{
 					/* Get player base address */
-					ReadProcessMemory(hProcess, (LPVOID)(0x1020A13C), &player, sizeof(int), 0); // mono.dll(0x10000000)+0x20A13C
+					ReadProcessMemory(hProcess, (LPVOID)(monodlladress+0x20A13C), &player, sizeof(int), 0); // mono.dll+0x20A13C
 					ReadProcessMemory(hProcess, (LPVOID)(player + 0x740), &player, sizeof(int), 0); // 0x740 - first offset
 					ReadProcessMemory(hProcess, (LPVOID)(player + 0x34), &player, sizeof(int), 0); // 0x34 - second offset
 					ReadProcessMemory(hProcess, (LPVOID)(player + 0x8), &player, sizeof(int), 0); // 0x8 - third offset
@@ -59,7 +86,6 @@ int main()
 			}
 		}
 	}
-
 	CloseHandle(snapshot);
 	return 0;
 }
