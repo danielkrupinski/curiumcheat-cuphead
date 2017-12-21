@@ -1,4 +1,5 @@
 #include <iostream>
+#define WIN32_LEAN_AND_MEAN
 #include <Windows.h>
 #include <tlhelp32.h>
 #include <tchar.h>
@@ -45,7 +46,7 @@ int main()
 				DWORD_PTR monodlladress = dwGetModuleBaseAddress(entry.th32ProcessID, (TCHAR*)("mono.dll"));
 
 				printf("Process found!");
-				Sleep(1500);
+				Sleep(1000);
 				system("cls");
 				std::cout << "Select mode: " << std::endl;
 				std::cout << "1. Hard invincibility and supermeter cheat." << std::endl;
@@ -61,21 +62,20 @@ int main()
 
 				for (;;)
 				{
-					/* Get player base address */
-					ReadProcessMemory(hProcess, (LPVOID)(monodlladress+0x20A13C), &player, sizeof(int), 0); // mono.dll+0x20A13C
-					ReadProcessMemory(hProcess, (LPVOID)(player + 0x740), &player, sizeof(int), 0); // 0x740 - first offset
-					ReadProcessMemory(hProcess, (LPVOID)(player + 0x34), &player, sizeof(int), 0); // 0x34 - second offset
-					ReadProcessMemory(hProcess, (LPVOID)(player + 0x8), &player, sizeof(int), 0); // 0x8 - third offset
-					ReadProcessMemory(hProcess, (LPVOID)(player + 0x18), &player, sizeof(int), 0); // 0x18 - fourth offset
+					ReadProcessMemory(hProcess, (LPVOID)(monodlladress+0x20A13C), &player, sizeof(int), 0);
+					ReadProcessMemory(hProcess, (LPVOID)(player + 0x740), &player, sizeof(int), 0);
+					ReadProcessMemory(hProcess, (LPVOID)(player + 0x34), &player, sizeof(int), 0);
+					ReadProcessMemory(hProcess, (LPVOID)(player + 0x8), &player, sizeof(int), 0);
+					ReadProcessMemory(hProcess, (LPVOID)(player + 0x18), &player, sizeof(int), 0);
 
 					switch (mode)
 					{
 					case 1:
-						WriteProcessMemory(hProcess, (LPVOID)(player + 0x84), &invincibility, sizeof(invincibility), 0); // invincibility - player base adress + 0x84
-						WriteProcessMemory(hProcess, (LPVOID)(player + 0x68), &supermeter, sizeof(supermeter), 0); // super meter - player base adress + 0x68
+						WriteProcessMemory(hProcess, (LPVOID)(player + 0x84), &invincibility, sizeof(invincibility), 0);
+						WriteProcessMemory(hProcess, (LPVOID)(player + 0x68), &supermeter, sizeof(supermeter), 0);
 						break;
 					case 2:
-						WriteProcessMemory(hProcess, (LPVOID)(player + 0x6C), &invincibility, sizeof(invincibility), 0); // full invincibility - player base adress + 0x6C
+						WriteProcessMemory(hProcess, (LPVOID)(player + 0x6C), &invincibility, sizeof(invincibility), 0);
 						break;
 					default:
 						return 0;
