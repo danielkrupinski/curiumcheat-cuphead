@@ -48,11 +48,11 @@ int main()
 				printf("Process found!");
 				Sleep(1000);
 				system("cls");
-				std::cout << "Select mode: " << std::endl;
-				std::cout << "1. Hard invincibility and supermeter cheat." << std::endl;
-				std::cout << "2. Full invincibility but no sepermeter cheat." << std::endl;
+				printf("Select mode: \n");
+				printf("1. Hard invincibility and supermeter cheat.\n");
+				printf("2. Full invincibility but no sepermeter cheat.\n");
 				int mode = 0;
-				std::cin >> mode;
+				scanf_s("%d", &mode);
 				system("cls");
 				printf("Cheat activated!");
 
