@@ -60,7 +60,7 @@ int main()
 				float supermeter = 50;
 				size_t player = 0;
 
-				while(true)
+				while (true)
 				{
 					ReadProcessMemory(hProcess, (LPVOID)(monodlladress+0x20A13C), &player, sizeof(int), 0);
 					ReadProcessMemory(hProcess, (LPVOID)(player + 0x740), &player, sizeof(int), 0);
